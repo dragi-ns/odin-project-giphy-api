@@ -10,12 +10,17 @@
     <div>
       <img src="" />
     </div>
-    <button onclick="nextImage();">Next Image</button>
+    <div>
+      <input type="text" placeholder="cats" />
+      <button>Next Image</button>
+    </div>
     <script>
       const img = document.querySelector('img');
-      function nextImage() {
+      const input = document.querySelector('input');
+      const button = document.querySelector('button');
+      function nextImage(query = 'cats') {
         fetch(
-          'https://api.giphy.com/v1/gifs/translate?api_key=MHLKOmID9gWMfFLF4OK7zLTgVKitpfer&s=cats',
+          `https://api.giphy.com/v1/gifs/translate?api_key=MHLKOmID9gWMfFLF4OK7zLTgVKitpfer&s=${query}`,
           { mode: 'cors' }
         )
           .then(function (response) {
@@ -23,8 +28,15 @@
           })
           .then(function (response) {
             img.src = response.data.images.original.url;
+          })
+          .catch(function (error) {
+            img.src = './no-image.jpg';
           });
       }
+      button.addEventListener('click', () => {
+        const query = input.value.trim();
+        nextImage(query || 'cats');
+      });
       nextImage();
     </script>
   </body>
