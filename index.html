@@ -7,19 +7,25 @@
     <title>Giphy API | Odin Project</title>
   </head>
   <body>
-    <img src="" alt="" />
+    <div>
+      <img src="" />
+    </div>
+    <button onclick="nextImage();">Next Image</button>
     <script>
       const img = document.querySelector('img');
-      fetch(
-        'https://api.giphy.com/v1/gifs/translate?api_key=MHLKOmID9gWMfFLF4OK7zLTgVKitpfer&s=cats',
-        { mode: 'cors' }
-      )
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (response) {
-          img.src = response.data.images.original.url;
-        });
+      function nextImage() {
+        fetch(
+          'https://api.giphy.com/v1/gifs/translate?api_key=MHLKOmID9gWMfFLF4OK7zLTgVKitpfer&s=cats',
+          { mode: 'cors' }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            img.src = response.data.images.original.url;
+          });
+      }
+      nextImage();
     </script>
   </body>
 </html>
